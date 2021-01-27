@@ -21,7 +21,7 @@ class CreateLibrariesTable extends Migration
             $table->string('ISBN');
             $table->string('bahasa');
             $table->string('penerbit');
-            $table->string('deskripsi');
+            $table->longText('deskripsi');
             $table->timestamps();
         });
     }

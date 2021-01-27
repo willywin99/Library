@@ -11,6 +11,12 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api/v1'], function() use ($router) {
+
+    $router->get('/libraries', 'LibraryController@index');
+    $router->post('/libraries', 'LibraryController@store');
+    $router->put('/libraries/{id}', 'LibraryController@update');
+    $router->delete('/libraries/{id}', 'LibraryController@destroy');
+    $router->get('/libraries/{id}', 'LibraryController@show');
+
 });

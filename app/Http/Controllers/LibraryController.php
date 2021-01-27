@@ -14,7 +14,12 @@ class LibraryController extends Controller
      */
     public function index()
     {
-        //
+        $books = Library::all();
+        return response()->json([
+            'status' => 'success',
+            'statuscode' => 200,
+            'data' => $books
+        ], 200);
     }
 
     /**
@@ -25,7 +30,20 @@ class LibraryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $book = new Library();
+        $book->judul = $request->judul;
+        $book->jumlah_halaman = $request->jumlah_halaman;
+        $book->tanggal_terbit = $request->tanggal_terbit;
+        $book->ISBN = $request->ISBN;
+        $book->bahasa = $request->bahasa;
+        $book->penerbit = $request->penerbit;
+        $book->deskripsi = $request->deskripsi;
+        $book->save();
+        return response()->json([
+            'status' => 'success',
+            'statuscode' => 200,
+            'data' => 'Buku berhasil ditambahkan'
+        ], 200);
     }
 
     /**
@@ -34,9 +52,14 @@ class LibraryController extends Controller
      * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function show(Library $library)
+    public function show(Library $library, $id)
     {
-        //
+        $book = Library::find($id);
+        return response()->json([
+            'status' => 'success',
+            'statuscode' => 200,
+            'data' => $book
+        ], 200);
     }
 
     /**
@@ -46,9 +69,22 @@ class LibraryController extends Controller
      * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Library $library)
+    public function update(Request $request, Library $library, $id)
     {
-        //
+        $book = Library::find($id);
+        $book->judul = $request->judul;
+        $book->jumlah_halaman = $request->jumlah_halaman;
+        $book->tanggal_terbit = $request->tanggal_terbit;
+        $book->ISBN = $request->ISBN;
+        $book->bahasa = $request->bahasa;
+        $book->penerbit = $request->penerbit;
+        $book->deskripsi = $request->deskripsi;
+        $book->save();
+        return response()->json([
+            'status' => 'success',
+            'statuscode' => 200,
+            'data' => 'Buku berhasil diubah'
+        ], 200);
     }
 
     /**
@@ -57,8 +93,14 @@ class LibraryController extends Controller
      * @param  \App\Library  $library
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Library $library)
+    public function destroy(Library $library, $id)
     {
-        //
+        $book = Library::find($id);
+        $book->delete();
+        return response()->json([
+            'status' => 'success',
+            'statuscode' => 200,
+            'data' => 'Buku berhasil dihapus'
+        ], 200);
     }
 }
